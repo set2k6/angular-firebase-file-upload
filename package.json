@@ -1,0 +1,23 @@
+{
+  "name": "angular-firebase-file-upload",
+  "version": "1.0.0",
+  "description": "uploading files with firebase",
+  "main": "index.js",
+  "scripts": {
+    "start": "http-server public",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/set2k6/angular-firebase-file-upload.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/set2k6/angular-firebase-file-upload/issues"
+  },
+  "homepage": "https://github.com/set2k6/angular-firebase-file-upload#readme",
+  "dependencies": {
+    "http-server": "^0.9.0"
+  }
+}

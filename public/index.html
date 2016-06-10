@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>File Uploader</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+	<div ng-app="app">
+		<div ng-controller="UploadCtrl as up">
+			<h1>{{up.heading}}</h1>
+			<form ng-submit="up.submit()">
+				<input type="file" accept="image"/>
+				<input type="submit" value="Upload File!" />
+			</form>
+			<img ng-src="url" ng-repeat="url in up.photoURLs" />
+		</div>
+
+	</div>
+
+	<script src="/lib/angular/angular.min.js"></script>
+	<script src="/lib/firebase/firebase.js"></script>
+	<script src="main.js"></script>
+</body>
+</html>

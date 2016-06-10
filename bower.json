@@ -1,0 +1,22 @@
+{
+  "name": "angular-firebase-file-upload",
+  "description": "uploading files with firebase",
+  "main": "index.js",
+  "authors": [
+    "set2k6 <set2k6@gmail.com>"
+  ],
+  "license": "ISC",
+  "homepage": "https://github.com/set2k6/angular-firebase-file-upload",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.6",
+    "firebase": "^3.0.4"
+  }
+}
