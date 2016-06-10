@@ -14,7 +14,7 @@ angular.module("app", [])
     databaseURL: "https://angfileup.firebaseio.com",
     storageBucket: "angfileup.appspot.com",
   })))
-	.controller("UploadCtrl", function () {
+	.controller("UploadCtrl", function ($timeout, uploadFactory) {
 		const up = this
 
 		up.heading = "Share those files playa!"
@@ -24,22 +24,42 @@ angular.module("app", [])
 			const input = document.querySelector('[type="file"]')
 			const file = input.files[0]
 			// console.dir(input.file)
-			const uploadTask = firebase.storage().ref().child("funnypic1.jpg").put(file)
+			const randomInteger = Math.random() * 1e17
+			const getFileExtension = file.type.split("/").slice(-1)[0]
+			const randomPath = `${randomInteger}.${getFileExtension}`
+			// const uploadTask = firebase.storage().ref().child("funnypic1.jpg").put(file)
 
-			uploadTask.on('state_changed', null, null, () => {
-				up.photoURLs.push(uploadTask.snapshot.downloadURL)
-				$scope.$apply()
-			})
+			 uploadFactory.send(file, randomPath)
+        .then(res => {
+          up.photoURLs.push(res.downloadURL)
+          return res.downloadURL
+        })
+        .then((url) => {
+          firebase.database().ref('/images').push({url})
+        })
+			// uploadTask.on('state_changed', null, null, () => {
+			// 	up.photoURLs.push(uploadTask.snapshot.downloadURL)
+			// 	$scope.$apply(
 		}
 	})
+ .factory('uploadFactory', ($timeout) => ({
+    send (file, path = file.name) {
+      return $timeout().then(() => (
+        new Promise ((resolve, reject) => {
+          const uploadTask = firebase.storage().ref()
+            .child(path).put(file)
+// function uploadFile (file, path) {
+// 	return new Promise ((resolve, reject) => {
+// 		const uploadTask = firebase.storage().ref()
+// 			.child(path).put(file)
 
-function uploadFile (file, path) {
-	return new Promise (() {
-		const uploadTask = firebase.storage().ref()
-			.child(path).put(file)
-
-			uploadTask.on("state_changed", null, reject, () => resolve(uploadTask.snapshot)
-				)
-	})
-}
+					uploadTask.on("state_changed",
+						null,
+						reject,
+						() => resolve(uploadTask.snapshot)
+					)
+				})
+  		))
+		}
+}))
 
